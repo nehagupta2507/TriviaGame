@@ -83,6 +83,7 @@ const myQuestions = [
     let userSelect = 0;
     let s = 0;
     let t = 0;
+    let clicked = false;
 
 //Timer  code //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss). 
 function timeConverter(t) {
@@ -134,6 +135,7 @@ function startQuiz(){
 
 function newPage(){  
       // $("#alert").empty();
+      clicked = false;
       $("#pic").empty();
       $("#questionNum").empty();
       $(".options").empty();
@@ -148,13 +150,17 @@ function newPage(){
         $(".options").append(option);
        }
         myTimer();
-        $(".thisOption").click(function(){
-        // console.log('I am clicked 1');
+        $(".thisOption").on("click",function(){
+        //console.log('I am clicked 1');
         //console.log($(this).data('index'));
-        userSelect = $(this).data('index');   
+        if(!clicked){
+        userSelect = $(this).data('index');  
+        //$( this ).off( event );
         //console.log('I am clicked 2');
         clearInterval(t);
         checkAnswer();
+        }
+        clicked = true;
         });
     }
 
@@ -193,7 +199,6 @@ function stats(){
       $("#questionNum").empty();
       $(".question").empty();
       $("#timer").empty();
-      // $("#alert").empty();
       $("#pic").empty();
       $(".options").empty();
       $("#gameOver").html("Game Over! Let's see, how well you know the World!!!");
